@@ -1,0 +1,331 @@
+-- Loading resources from C:\Users\Leopardo/.sqliterc
+SQLite version 3.36.0 2021-06-18 18:36:39
+Enter ".help" for usage hints.
+Connected to a transient in-memory database.
+Use ".open FILENAME" to reopen on a persistent database.
+sqlite> .open tpch.db
+sqlite> .database
+main: C:\Users\Leopardo\Documents\Leonardo\Mestrado\Mestrado_2021\SQL Processamento\sqlite-tools-win32-x86-3360000 (1)\sqlite-tools-win32-x86-3360000\tpch.db r/w
+sqlite> select distinct(r_name) from REGION;
+R_NAME
+-----------
+AFRICA
+AMERICA
+ASIA
+EUROPE
+MIDDLE EAST
+sqlite> /* Q2 Tipos de peças disponiveis:
+   ...> Objetivo: liste os tipos distintos de peça dos produtos (tabela PART)
+   ...> */
+sqlite> select
+   ...> distinct P_TYPE P_TYPE
+   ...> from PART
+   ...> order by P_TYPE asc;
+P_TYPE
+-------------------------
+ECONOMY ANODIZED BRASS
+ECONOMY ANODIZED COPPER
+ECONOMY ANODIZED NICKEL
+ECONOMY ANODIZED STEEL
+ECONOMY ANODIZED TIN
+ECONOMY BRUSHED BRASS
+ECONOMY BRUSHED COPPER
+ECONOMY BRUSHED NICKEL
+ECONOMY BRUSHED STEEL
+ECONOMY BRUSHED TIN
+ECONOMY BURNISHED BRASS
+ECONOMY BURNISHED COPPER
+ECONOMY BURNISHED NICKEL
+ECONOMY BURNISHED STEEL
+ECONOMY BURNISHED TIN
+ECONOMY PLATED BRASS
+ECONOMY PLATED COPPER
+ECONOMY PLATED NICKEL
+ECONOMY PLATED STEEL
+ECONOMY PLATED TIN
+ECONOMY POLISHED BRASS
+ECONOMY POLISHED COPPER
+ECONOMY POLISHED NICKEL
+ECONOMY POLISHED STEEL
+ECONOMY POLISHED TIN
+LARGE ANODIZED BRASS
+LARGE ANODIZED COPPER
+LARGE ANODIZED NICKEL
+LARGE ANODIZED STEEL
+LARGE ANODIZED TIN
+LARGE BRUSHED BRASS
+LARGE BRUSHED COPPER
+LARGE BRUSHED NICKEL
+LARGE BRUSHED STEEL
+LARGE BRUSHED TIN
+LARGE BURNISHED BRASS
+LARGE BURNISHED COPPER
+LARGE BURNISHED NICKEL
+LARGE BURNISHED STEEL
+LARGE BURNISHED TIN
+LARGE PLATED BRASS
+LARGE PLATED COPPER
+LARGE PLATED NICKEL
+LARGE PLATED STEEL
+LARGE PLATED TIN
+LARGE POLISHED BRASS
+LARGE POLISHED COPPER
+LARGE POLISHED NICKEL
+LARGE POLISHED STEEL
+LARGE POLISHED TIN
+MEDIUM ANODIZED BRASS
+MEDIUM ANODIZED COPPER
+MEDIUM ANODIZED NICKEL
+MEDIUM ANODIZED STEEL
+MEDIUM ANODIZED TIN
+MEDIUM BRUSHED BRASS
+MEDIUM BRUSHED COPPER
+MEDIUM BRUSHED NICKEL
+MEDIUM BRUSHED STEEL
+MEDIUM BRUSHED TIN
+MEDIUM BURNISHED BRASS
+MEDIUM BURNISHED COPPER
+MEDIUM BURNISHED NICKEL
+MEDIUM BURNISHED STEEL
+MEDIUM BURNISHED TIN
+MEDIUM PLATED BRASS
+MEDIUM PLATED COPPER
+MEDIUM PLATED NICKEL
+MEDIUM PLATED STEEL
+MEDIUM PLATED TIN
+MEDIUM POLISHED BRASS
+MEDIUM POLISHED COPPER
+MEDIUM POLISHED NICKEL
+MEDIUM POLISHED STEEL
+MEDIUM POLISHED TIN
+PROMO ANODIZED BRASS
+PROMO ANODIZED COPPER
+PROMO ANODIZED NICKEL
+PROMO ANODIZED STEEL
+PROMO ANODIZED TIN
+PROMO BRUSHED BRASS
+PROMO BRUSHED COPPER
+PROMO BRUSHED NICKEL
+PROMO BRUSHED STEEL
+PROMO BRUSHED TIN
+PROMO BURNISHED BRASS
+PROMO BURNISHED COPPER
+PROMO BURNISHED NICKEL
+PROMO BURNISHED STEEL
+PROMO BURNISHED TIN
+PROMO PLATED BRASS
+PROMO PLATED COPPER
+PROMO PLATED NICKEL
+PROMO PLATED STEEL
+PROMO PLATED TIN
+PROMO POLISHED BRASS
+PROMO POLISHED COPPER
+PROMO POLISHED NICKEL
+PROMO POLISHED STEEL
+PROMO POLISHED TIN
+SMALL ANODIZED BRASS
+SMALL ANODIZED COPPER
+SMALL ANODIZED NICKEL
+SMALL ANODIZED STEEL
+SMALL ANODIZED TIN
+SMALL BRUSHED BRASS
+SMALL BRUSHED COPPER
+SMALL BRUSHED NICKEL
+SMALL BRUSHED STEEL
+SMALL BRUSHED TIN
+SMALL BURNISHED BRASS
+SMALL BURNISHED COPPER
+SMALL BURNISHED NICKEL
+SMALL BURNISHED STEEL
+SMALL BURNISHED TIN
+SMALL PLATED BRASS
+SMALL PLATED COPPER
+SMALL PLATED NICKEL
+SMALL PLATED STEEL
+SMALL PLATED TIN
+SMALL POLISHED BRASS
+SMALL POLISHED COPPER
+SMALL POLISHED NICKEL
+SMALL POLISHED STEEL
+SMALL POLISHED TIN
+STANDARD ANODIZED BRASS
+STANDARD ANODIZED COPPER
+STANDARD ANODIZED NICKEL
+STANDARD ANODIZED STEEL
+STANDARD ANODIZED TIN
+STANDARD BRUSHED BRASS
+STANDARD BRUSHED COPPER
+STANDARD BRUSHED NICKEL
+STANDARD BRUSHED STEEL
+STANDARD BRUSHED TIN
+STANDARD BURNISHED BRASS
+STANDARD BURNISHED COPPER
+STANDARD BURNISHED NICKEL
+STANDARD BURNISHED STEEL
+STANDARD BURNISHED TIN
+STANDARD PLATED BRASS
+STANDARD PLATED COPPER
+STANDARD PLATED NICKEL
+STANDARD PLATED STEEL
+STANDARD PLATED TIN
+STANDARD POLISHED BRASS
+STANDARD POLISHED COPPER
+STANDARD POLISHED NICKEL
+STANDARD POLISHED STEEL
+STANDARD POLISHED TIN
+sqlite> /*Q3 Quantidade de clientes pelo segmento de mercado:*/
+sqlite> select
+   ...> C_MKTSEGMENT segmento_mercado,
+   ...> count(C_NAME) clientes
+   ...> from
+   ...> CUSTOMER
+   ...> group by
+   ...> C_MKTSEGMENT
+   ...> ;
+segmento_mercado  clientes
+----------------  --------
+AUTOMOBILE        302
+BUILDING          337
+FURNITURE         279
+HOUSEHOLD         294
+MACHINERY         288
+sqlite> /*--Q4 Liste o status das encomendas:*/
+sqlite> select
+   ...> DISTINCT O_ORDERSTATUS
+   ...> from
+   ...> ORDERS;
+O_ORDERSTATUS
+-------------
+O
+F
+P
+sqlite> /*--Q5 Liste os países que mais realizaram encomendas:
+   ...> --Objetivo: liste os países e a quantidade de encomendas de cada país.
+   ...> --Detalhe: mostre o nome do país e sua quantidade de encomendas ordenada de forma decrescente pela quantidade.
+   ...> */
+sqlite> select
+   ...> n.N_NAME,
+   ...> count(o.O_ORDERKEY) total_encomendas
+   ...> from
+   ...> NATION n
+   ...> join CUSTOMER c on n.N_NATIONKEY = c.C_NATIONKEY
+   ...> join ORDERS o on o.O_CUSTKEY = c.C_CUSTKEY
+   ...> group BY
+   ...> n.N_NAME
+   ...> order BY 2 desc;
+N_NAME          total_encomendas
+--------------  ----------------
+CANADA          775
+IRAN            745
+EGYPT           712
+BRAZIL          700
+ALGERIA         691
+JAPAN           667
+INDONESIA       666
+UNITED KINGDOM  655
+ROMANIA         655
+MOROCCO         644
+SAUDI ARABIA    640
+VIETNAM         635
+MOZAMBIQUE      617
+JORDAN          600
+ETHIOPIA        596
+IRAQ            584
+KENYA           567
+GERMANY         554
+INDIA           532
+ARGENTINA       527
+RUSSIA          484
+PERU            464
+CHINA           459
+UNITED STATES   456
+FRANCE          375
+sqlite> /*--Q6 Liste a quantidade de itens encomendados pelos países :
+   ...> --Objetivo: liste os países e a quantidade de itens de cada país.
+   ...> --Detalhe: mostre o nome do país e sua quantidade de itens encomendados ordenada de forma decrescente pela quantidade.
+   ...> */
+sqlite> select
+   ...> n.N_NAME,
+   ...> sum(l.L_QUANTITY) soma_itens
+   ...> from
+   ...> NATION n
+   ...> join CUSTOMER c on n.N_NATIONKEY = c.C_NATIONKEY
+   ...> join ORDERS o on o.O_CUSTKEY = c.C_CUSTKEY
+   ...> join LINEITEM l on l.L_ORDERKEY = o.O_ORDERKEY
+   ...> group BY
+   ...> n.N_NAME
+   ...> order BY 2 desc;
+N_NAME          soma_itens
+--------------  ----------
+CANADA          79407
+EGYPT           76432
+IRAN            75059
+BRAZIL          71220
+ALGERIA         70308
+SAUDI ARABIA    67804
+INDONESIA       67067
+ROMANIA         66783
+JAPAN           66169
+UNITED KINGDOM  65348
+MOROCCO         65327
+MOZAMBIQUE      64956
+VIETNAM         63556
+ETHIOPIA        60866
+KENYA           60589
+JORDAN          59946
+IRAQ            58695
+GERMANY         56108
+INDIA           54403
+ARGENTINA       54369
+RUSSIA          51130
+PERU            47802
+UNITED STATES   47007
+CHINA           46901
+FRANCE          38875
+sqlite> /*--Q7 Liste a quantidade de itens encomendados pelos países com mais de 62000 itens:
+   ...> --Objetivo: liste os países e a quantidade de itens de cada país.
+   ...> --Detalhe: mostre o nome do país e sua quantidade de itens encomendados ordenada de forma decrescente pela quantidade.
+   ...> --Mostre somente os países que possuem mais de 62.000 de itens encomendados.
+   ...> */
+sqlite> select
+   ...> n.N_NAME,
+   ...> count(distinct o.O_ORDERKEY) total_encomendas,
+   ...> sum(l.L_QUANTITY) soma_itens
+   ...> from
+   ...> NATION n
+   ...> join CUSTOMER c on n.N_NATIONKEY = c.C_NATIONKEY
+   ...> join ORDERS o on o.O_CUSTKEY = c.C_CUSTKEY
+   ...> join LINEITEM l on l.L_ORDERKEY = o.O_ORDERKEY
+   ...> group BY
+   ...> n.N_NAME
+   ...> having sum(l.L_QUANTITY) >= 62000
+   ...> order BY 2 desc;
+N_NAME          total_encomendas  soma_itens
+--------------  ----------------  ----------
+CANADA          775               79407
+IRAN            745               75059
+EGYPT           712               76432
+BRAZIL          700               71220
+ALGERIA         691               70308
+JAPAN           667               66169
+INDONESIA       666               67067
+UNITED KINGDOM  655               65348
+ROMANIA         655               66783
+MOROCCO         644               65327
+SAUDI ARABIA    640               67804
+VIETNAM         635               63556
+MOZAMBIQUE      617               64956
+sqlite> /*--Q8 Quantidade de clientes que podem ter realizado uma ordem de compra (não fizeram obrigatóriamente):
+   ...> --Objetivo: contar os clientes que fizeram ordem de compra mas que não tem 'special request' juntamente com os clientes que não fizeram ordem de compra.
+   ...> --Portanto, os clientes que fizeram ordem de compra não podem ter no comentário de compra O_COMMENT o string 'special request'.
+   ...> --Detalhe: mostre somente a quantidade dos clientes */
+sqlite> select
+   ...> count(c.C_CUSTKEY) total_clientes
+   ...> from
+   ...> CUSTOMER c
+   ...> left join ORDERS o on c.C_CUSTKEY = o.O_CUSTKEY
+   ...> where (o.O_ORDERKEY is null or O_COMMENT not like '%special request%');
+total_clientes
+--------------
+15359
+sqlite>
